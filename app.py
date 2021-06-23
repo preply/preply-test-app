@@ -3,6 +3,7 @@ import logging
 import sys
 import datetime
 import platform
+import os
 
 
 logger = logging.getLogger("preply-test-app")
@@ -45,7 +46,8 @@ def ready():
 
 @app.route("/", methods=["GET"])
 def index():
-    resp = make_response(render_template("index.html"))
+    secret = os.environ.get('SECRET', '')
+    resp = make_response(render_template("index.html", secret=secret))
 
     return resp
 
